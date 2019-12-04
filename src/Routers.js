@@ -1,5 +1,7 @@
-import Detail from './routers/Detail';
 import Home from './routers/Home';
+import reactLoadable from './reactLoadable';
+const Detail = reactLoadable(() => import('./routers/Detail'));
+console.log(Detail)
 const Routers=[{
     path: '/',
     component: Home,

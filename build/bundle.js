@@ -2,6 +2,12 @@
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
+/******/ 	// object to store loaded chunks
+/******/ 	// "0" means "already loaded"
+/******/ 	var installedChunks = {
+/******/ 		"main": 0
+/******/ 	};
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/
@@ -26,6 +32,26 @@
 /******/ 		return module.exports;
 /******/ 	}
 /******/
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
+/******/ 		var promises = [];
+/******/
+/******/
+/******/ 		// require() chunk loading for javascript
+/******/
+/******/ 		// "0" is the signal for "already loaded"
+/******/ 		if(installedChunks[chunkId] !== 0) {
+/******/ 			var chunk = require("./" + chunkId + ".bundle.js");
+/******/ 			var moreModules = chunk.modules, chunkIds = chunk.ids;
+/******/ 			for(var moduleId in moreModules) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 			for(var i = 0; i < chunkIds.length; i++)
+/******/ 				installedChunks[chunkIds[i]] = 0;
+/******/ 		}
+/******/ 		return Promise.all(promises);
+/******/ 	};
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -78,6 +104,13 @@
 /******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// uncaught error handler for webpack runtime
+/******/ 	__webpack_require__.oe = function(err) {
+/******/ 		process.nextTick(function() {
+/******/ 			throw err; // catch this error by using import().catch()
+/******/ 		});
+/******/ 	};
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -163,19 +196,19 @@ eval("\n    var refs = 0;\n    var css = __webpack_require__(/*! !../../node_mod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _routers_Detail__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./routers/Detail */ \"./src/routers/Detail/index.js\");\n/* harmony import */ var _routers_Home__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routers/Home */ \"./src/routers/Home/index.js\");\n\n\nvar Routers = [{\n  path: '/',\n  component: _routers_Home__WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n  loadData: _routers_Home__WEBPACK_IMPORTED_MODULE_1__[\"default\"].loadData,\n  exact: true\n}, {\n  path: '/home',\n  component: _routers_Home__WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n  loadData: _routers_Home__WEBPACK_IMPORTED_MODULE_1__[\"default\"].loadData,\n  exact: true\n}, {\n  path: '/detail',\n  component: _routers_Detail__WEBPACK_IMPORTED_MODULE_0__[\"default\"],\n  exact: true\n}];\n/* harmony default export */ __webpack_exports__[\"default\"] = (Routers);\n\n//# sourceURL=webpack:///./src/Routers.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _routers_Home__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./routers/Home */ \"./src/routers/Home/index.js\");\n/* harmony import */ var _reactLoadable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reactLoadable */ \"./src/reactLoadable.js\");\n\n\nvar Detail = Object(_reactLoadable__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(function () {\n  return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./routers/Detail */ \"./src/routers/Detail/index.js\"));\n});\nconsole.log(Detail);\nvar Routers = [{\n  path: '/',\n  component: _routers_Home__WEBPACK_IMPORTED_MODULE_0__[\"default\"],\n  loadData: _routers_Home__WEBPACK_IMPORTED_MODULE_0__[\"default\"].loadData,\n  exact: true\n}, {\n  path: '/home',\n  component: _routers_Home__WEBPACK_IMPORTED_MODULE_0__[\"default\"],\n  loadData: _routers_Home__WEBPACK_IMPORTED_MODULE_0__[\"default\"].loadData,\n  exact: true\n}, {\n  path: '/detail',\n  component: Detail,\n  exact: true\n}];\n/* harmony default export */ __webpack_exports__[\"default\"] = (Routers);\n\n//# sourceURL=webpack:///./src/Routers.js?");
 
 /***/ }),
 
-/***/ "./src/routers/Detail/index.js":
-/*!*************************************!*\
-  !*** ./src/routers/Detail/index.js ***!
-  \*************************************/
+/***/ "./src/reactLoadable.js":
+/*!******************************!*\
+  !*** ./src/reactLoadable.js ***!
+  \******************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"react\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nvar Detail = function Detail() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null, \"Detail\");\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Detail);\n\n//# sourceURL=webpack:///./src/routers/Detail/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"react\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\nfunction _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nfunction _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \"object\" || typeof call === \"function\")) { return call; } return _assertThisInitialized(self); }\n\nfunction _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return self; }\n\nfunction _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }\n\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\n // import Loadable from 'react-loadable';\n// const reactLoadable = (loader, loading = Spin, config = {}) => {\n// \tconst _config = Object.assign({\n// \t\tloader,\n// \t\tloading:()=><div>loading</div>,\n// \t}, config);\n// \treturn Loadable(_config);\n// };\n// export default reactLoadable;\n\nvar reactLoadable = function reactLoadable(loader) {\n  var Loadable =\n  /*#__PURE__*/\n  function (_Component) {\n    _inherits(Loadable, _Component);\n\n    function Loadable(props) {\n      var _this;\n\n      _classCallCheck(this, Loadable);\n\n      _this = _possibleConstructorReturn(this, _getPrototypeOf(Loadable).call(this, props));\n      _this.state = {\n        loaderCom: null\n      };\n      return _this;\n    }\n\n    _createClass(Loadable, [{\n      key: \"componentDidMount\",\n      value: function componentDidMount() {\n        var _this2 = this;\n\n        loader().then(function (res) {\n          _this2.setState({\n            loaderCom: res[\"default\"]\n          });\n        });\n      }\n    }, {\n      key: \"render\",\n      value: function render() {\n        var Com = this.state.loaderCom;\n        return Com ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Com, null) : '';\n      }\n    }]);\n\n    return Loadable;\n  }(react__WEBPACK_IMPORTED_MODULE_0__[\"Component\"]);\n\n  return Loadable;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (reactLoadable);\n\n//# sourceURL=webpack:///./src/reactLoadable.js?");
 
 /***/ }),
 

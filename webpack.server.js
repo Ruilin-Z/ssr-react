@@ -1,5 +1,6 @@
 const path=require('path');
 const nodeExternals=require('webpack-node-externals');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 module.exports={
     target:'node',
     mode:'development',
@@ -28,5 +29,8 @@ module.exports={
                 name:'static/images/[name].[hash:8].[ext]',
             }
         }]
-    }
+    },
+    plugins:[
+        new CleanWebpackPlugin(),
+    ]
 }

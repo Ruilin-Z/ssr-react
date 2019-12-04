@@ -1,10 +1,12 @@
 const path=require('path');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 //客户端打包代码，用来接管页面
 module.exports={
     mode:'development',
     entry:'./src/client/index.js',
     output:{
         filename:'index.js',
+        chunkFilename:'[name].[chunkhash:8].js',
         path:path.resolve(__dirname,'public')
     },
     module:{
@@ -26,5 +28,8 @@ module.exports={
                 name:'static/images/[name].[hash:8].[ext]',
             }
         }]
-    }
+    },
+    plugins:[
+        new CleanWebpackPlugin(),
+    ]
 }
