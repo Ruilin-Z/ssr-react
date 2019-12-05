@@ -1,7 +1,8 @@
 import React ,{ Component} from 'react';
 import {connect} from 'react-redux';
 import {getListAction} from './store/action'
-import styles from './index.less';
+import withStyles from 'isomorphic-style-loader/withStyles'
+import style from './index.less';
 class Home extends Component{
     constructor(props){
         super(props);
@@ -13,10 +14,10 @@ class Home extends Component{
         // 在路由内的组件可以在props里接收到staticContext，也就是通过StaticRouter传递过来的context，
         // isomorphic-style-loader 提供了一个 _getCss() 方法，让我们能读取到css样式，
         // 然后放到staticContext里。
-        if (this.props.staticContext) {
-            const css = styles._getCss()
-            this.props.staticContext.css.push(css)
-          }
+        // if (this.props.staticContext) {
+        //     const css = styles._getCss()
+        //     this.props.staticContext.css.push(css)
+        //   }
     }
 
     componentDidMount(){
@@ -55,7 +56,6 @@ class Home extends Component{
     }
 }
 Home.loadData=(store)=>{
-    console.log(1212)
    return store.dispatch(getListAction())
 }
 const mapStateToProps=(state)=>{
@@ -70,4 +70,4 @@ const mapDistpatchToProps=(dispatch)=>{
         }
     }
 }
-export default connect(mapStateToProps,mapDistpatchToProps)(Home);
+export default connect(mapStateToProps,mapDistpatchToProps)(withStyles(style)(Home))

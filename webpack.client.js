@@ -16,10 +16,10 @@ module.exports={
             exclude:/node_modules/,
         },{
             test:/\.css$/,
-            use:['style-loader','css-loader']
+            use:['isomorphic-style-loader','css-loader']
         },{
             test:/\.less$/,
-            use:['style-loader','css-loader','less-loader'],
+            use:['isomorphic-style-loader','css-loader','less-loader'],
         }
         ,{
             test:/.(jpg|png)$/,

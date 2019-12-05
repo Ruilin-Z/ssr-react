@@ -4,6 +4,7 @@ import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {StaticRouter} from 'react-router-dom';
 import { matchRoutes, renderRoutes } from "react-router-config";
+import StyleContext from 'isomorphic-style-loader/StyleContext'
 import Routers from '../Routers';
 import express from 'express';
 import {Provider} from 'react-redux';
@@ -22,37 +23,43 @@ app.get('*',function(req,res){
     const matchedRoutes=matchRoutes(Routers,req.path);
     const promises=[];
     const store=getStore();
-            matchedRoutes.forEach(v=>{
-            const loadData=v.route.loadData;
-            if(loadData){
-                // 这是为了容错，一旦有一个请求出错，那么下边Promise.all方法则不会执行，
-                //所以包一层promise的目的是即使请求出错，也会resolve，不会影响到Promise.all方法
-                const promise=new Promise((resolve,reject)=>{
-                    loadData(store).then(resolve).catch(resolve)
-                })
-                promises.push(promise);
-            }
+    const css = new Set() // CSS for all rendered React components
+    const insertCss = (...styles) => {
+        console.log(22,styles)
+       return  styles.forEach(style => css.add(style._getCss()))
+    }
+   
+    matchedRoutes.forEach(v=>{
+        const loadData=v.route.loadData;
+        if(loadData){
+            // 这是为了容错，一旦有一个请求出错，那么下边Promise.all方法则不会执行，
+            //所以包一层promise的目的是即使请求出错，也会resolve，不会影响到Promise.all方法
+            const promise=new Promise((resolve,reject)=>{
+                loadData(store).then(resolve).catch(resolve)
+            })
+            promises.push(promise);
+        }
     })
     Promise.all(promises).then(()=>{
-        const context = {css: []}
+
         const content=renderToString((
-            <Provider store={store}>
-               <StaticRouter location={req.path} context={context}>
-                        <Header/>
-                        {renderRoutes(Routers)}
-                </StaticRouter>
-            </Provider>
+            
+                <Provider store={store}>
+                <StaticRouter location={req.path} context={{}}>
+                    <StyleContext.Provider value={{ insertCss }}>
+                                <Header/>
+                                {renderRoutes(Routers)}
+                    </StyleContext.Provider>
+                    </StaticRouter>
+                </Provider>
         ));
-         // 经过渲染之后，context.css内已经有了样式
-        const cssStr = context.css.length ? context.css.join('\n') : ''
+console.log(12345,css.size)
         res.send(
             `
             <html>
             <head>
             <title>hello server</title>
-            <style type="text/css" class="jss-server-side">
-            ${cssStr}
-            </style>
+            <style>${[...css].join('')}</style>
             </head>
             <body>
             <div id="root">${content}</div>

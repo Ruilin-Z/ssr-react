@@ -1,16 +1,17 @@
 import React,{Component} from 'react';
 import {NavLink,withRouter } from 'react-router-dom';
-import styles from  './index.less';
+import withStyles from 'isomorphic-style-loader/withStyles'
+import style from  './index.less';
 class Header extends Component{
     constructor(props){
         super(props);
         this.state={
          
         }
-        if (this.props.staticContext) {
-            const css = styles._getCss()
-            this.props.staticContext.css.push(css)
-          }
+        // if (this.props.staticContext) {
+        //     const css = styles._getCss()
+        //     this.props.staticContext.css.push(css)
+        //   }
     }
 
     render(){
@@ -23,4 +24,4 @@ class Header extends Component{
         )
     }
 }
-export default withRouter(Header);
+export default withRouter(withStyles(style)(Header));
