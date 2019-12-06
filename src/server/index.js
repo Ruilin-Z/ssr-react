@@ -24,10 +24,7 @@ app.get('*',function(req,res){
     const promises=[];
     const store=getStore();
     const css = new Set() // CSS for all rendered React components
-    const insertCss = (...styles) => {
-        console.log(22,styles)
-       return  styles.forEach(style => css.add(style._getCss()))
-    }
+    const insertCss = (...styles) =>styles.forEach(style => css.add(style._getCss()))
    
     matchedRoutes.forEach(v=>{
         const loadData=v.route.loadData;
@@ -53,7 +50,6 @@ app.get('*',function(req,res){
                     </StaticRouter>
                 </Provider>
         ));
-console.log(12345,css.size)
         res.send(
             `
             <html>
