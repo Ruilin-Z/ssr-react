@@ -25,16 +25,6 @@ module.exports={
             "name": "manifest"
         },
     },
-    plugins:[
-        new CleanWebpackPlugin(),
-        new ExtractTextPlugin("static/css/styles.css"),
-        new HtmlWebpackPlugin({
-          title:'webpack学习',
-          template:path.resolve(__dirname,'template/index.html')  
-        }),
-       
-        // new webpack.HotModuleReplacementPlugin()
-    ],
     resolve: {
 		extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx'],
 		alias: {
@@ -48,20 +38,10 @@ module.exports={
             exclude:/node_modules/,
         },{
             test:/\.css$/,
-            use:['style-loader','css-loader']
-            // use:ExtractTextPlugin.extract(
-            //     {
-            //         use:'css-loader',
-            //         fallback:'style-loader',
-            //     },
-            //    )
+            use:['isomorphic-style-loader','css-loader']
         },{
             test:/\.less$/,
-            use:['style-loader','css-loader','less-loader'],
-            // use: ExtractTextPlugin.extract({
-            //     fallback: 'style-loader',
-            //     use: ['css-loader', 'less-loader']
-            //   })
+            use:['isomorphic-style-loader','css-loader','less-loader'],
         }
         ,{
             test:/.(jpg|png)$/,
