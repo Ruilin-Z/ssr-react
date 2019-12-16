@@ -46,11 +46,6 @@ exec(cmd, function (error, version, stderr) {
 	const versionStr = version.replace(/\n/, '') + `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}：${date.getMinutes()}`;
 
 	const promptList = [{
-		type: 'input',
-		message: '设置一个用户名:',
-		name: 'name',
-		default: 'test_user' // 默认值
-	}, {
 		type: 'checkbox-plus',
 		message: '选择颜色:',
 		name: 'color',

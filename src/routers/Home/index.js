@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getListAction } from './store/action';
+import ContextProviderTest from './components/ContextProviderTest';
+import GaojieCom from './components/GaojieCom';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import style from './index.less';
 class Home extends Component {
@@ -37,6 +39,8 @@ class Home extends Component {
 		const { nameList = [] } = this.props;
 		return (
 			<div style={{ color: 'red' }}>
+				<ContextProviderTest/>
+				<GaojieCom nameProps='rlz'/>
 				<div>{nameList.map(v => <p key={v.name}>{v.name}</p>)}</div>
 				<button onClick={() => {
 					this.setState({
