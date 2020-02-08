@@ -4,11 +4,12 @@ module.exports ={
 	  "browser": true,
 	  "es6": true,
 	  "node": true
-	  
+
 	},
 	"parserOptions": {
 	  "ecmaVersion": 6,
 	  "sourceType": "module"
+	  
 	},
 	"rules": {
 	  "space-in-parens": [0],
